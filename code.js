@@ -37,7 +37,7 @@ class player{
     
 }
 
-new player(HyJs.util.nameToUuid("DuckyHenry"));
+
 
 /**
  * @param {HyJs.hypixelAuction} auction
@@ -47,18 +47,27 @@ function makeNewWidget(auction){
     div.className = 'auction-widget';
     div.innerHTML = `
         <div class="auction-widget-header">
-            <img src="https://crafatar.com/avatars/${auction.auctioneer}?overlay" class="auction-widget-header-avatar">
-            <span class="auction-widget-header-name">${auction.auctioneer}</span>
-        </div>
-        <div class="auction-widget-content">
-            <div class="auction-widget-content-item">
-                <img src="https://crafatar.com/avatars/${auction.auctioneer}?overlay" class="auction-widget-content-item-avatar">
-                <span class="auction-widget-content-item-name">${auction.item}</span>
+            <div class="auctioneer">
+                ${auction.auctioneer}
             </div>
-            <div class="auction-widget-content-item">
-                <span class="auction-widget-content-item-name">${auction.amount}</span>
+            <div class="auction-price">
+                ${auction.price}
+            </div>
+            <div class="auction-name">
+                ${auction.item}
             </div>
         </div>
+
     `;
     dataDiv.appendChild(div);
 }
+async function findPlayer(){
+    const sb = new HyJs.HypixelSkyblock("");
+    const ah = await sb.getAuctionHouse();
+    const endedAuctions = await ah.getRecentlyEndedAuctions();
+    let plyer = endedAuctions[Object.keys(endedAuctions)[0]].auctioneer;
+    console.log(plyer);
+    console.log(HyJs.util.uuidToName(plyer));
+    var newPlayer = new player(player);
+}
+findPlayer();
